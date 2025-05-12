@@ -1,3 +1,4 @@
+
 # 🌿 Medicinal Plant Identification App
 
 This mobile application is designed to **identify medicinal plants from photos using machine learning**, providing **detailed information** such as their scientific name, medicinal properties, and potential toxicity. It is optimized to work **offline**, making it accessible in field environments without internet access.
@@ -18,36 +19,34 @@ This mobile application is designed to **identify medicinal plants from photos u
 
 ## 📦 Project Structure
 
+```
 medicinal_plants_app/
 │
 ├── models/
-│ ├── medicinal_plants_model.ipynb # Notebook for classification model
-│ ├── medicinal_plants_model.tflite # TFLite version of plant classifier
-│ ├── toxicity_detection_model.ipynb # (To create) Notebook for toxicity detection
-│ └── toxicity_detection_model.tflite # (To export) Toxicity model
+│   ├── medicinal_plants_model.ipynb          # Notebook for classification model
+│   ├── medicinal_plants_model.tflite         # TFLite version of plant classifier
+│   ├── toxicity_detection_model.ipynb        # (To create) Notebook for toxicity detection
+│   └── toxicity_detection_model.tflite       # (To export) Toxicity model
 │
 ├── data/
-│ ├── kaggle_dataset_link.txt # Link/reference to training dataset
-│ └── plants_data.json # Metadata: names, uses, toxicity, remedies
+│   ├── kaggle_dataset_link.txt               # Link/reference to training dataset
+│   └── plants_data.json                      # Metadata: names, uses, toxicity, remedies
 │
 ├── flutter_app/
-│ ├── lib/
-│ │ ├── main.dart
-│ │ ├── screens/
-│ │ ├── models/
-│ │ ├── services/
-│ │ └── widgets/
-│ ├── assets/
-│ │ ├── models/
-│ │ └── data/
-│ ├── pubspec.yaml
-│ └── android/ | ios/
+│   ├── lib/
+│   │   ├── main.dart
+│   │   ├── screens/
+│   │   ├── models/
+│   │   ├── services/
+│   │   └── widgets/
+│   ├── assets/
+│   │   ├── models/
+│   │   └── data/
+│   ├── pubspec.yaml
+│   └── android/ | ios/
 │
 └── README.md
-
-pgsql
-Copy
-Edit
+```
 
 ---
 
@@ -85,43 +84,52 @@ Edit
   "growth_environment": "Climat sec et ensoleillé",
   "category": "Plante médicinale"
 }
-🧰 Technologies Used
-Component	Technology
-Image Classification	TensorFlow + MobileNetV2
-On-device Inference	TensorFlow Lite
-Toxicity Detection	(Planned) ML model
-UI Framework	Flutter
-Camera Integration	CameraX
-Local Storage	SQLite (sqflite)
-Data Format	JSON
-Dataset Source	Kaggle Dataset
+```
 
-🚀 Setup Instructions
-1. Model Training
-Run medicinal_plants_model.ipynb in Kaggle to train and export the .tflite model.
+---
 
-(Optional) Create and train toxicity_detection_model.ipynb.
+## 🧰 Technologies Used
 
-2. Flutter Setup
-bash
-Copy
-Edit
+| Component             | Technology             |
+|----------------------|------------------------|
+| Image Classification | TensorFlow + MobileNetV2 |
+| On-device Inference  | TensorFlow Lite        |
+| Toxicity Detection   | (Planned) ML model     |
+| UI Framework         | Flutter                |
+| Camera Integration   | CameraX                |
+| Local Storage        | SQLite (sqflite)       |
+| Data Format          | JSON                   |
+| Dataset Source       | Kaggle Dataset         |
+
+---
+
+## 🚀 Setup Instructions
+
+### 1. Model Training
+
+- Run `medicinal_plants_model.ipynb` in Kaggle to train and export the `.tflite` model.
+- *(Optional)* Create and train `toxicity_detection_model.ipynb`.
+
+### 2. Flutter Setup
+
+```bash
 cd flutter_app/
 flutter pub get
 flutter run
-Place .tflite models in flutter_app/assets/models/
+```
 
-Place plants_data.json in flutter_app/assets/data/
+- Place `.tflite` models in `flutter_app/assets/models/`
+- Place `plants_data.json` in `flutter_app/assets/data/`
 
-3. pubspec.yaml Configuration
-Ensure these lines are included in your pubspec.yaml:
+### 3. `pubspec.yaml` Configuration
 
-yaml
-Copy
-Edit
+Ensure these lines are included in your `pubspec.yaml`:
+
+```yaml
 assets:
   - assets/models/medicinal_plants_model.tflite
   - assets/data/plants_data.json
+
 dependencies:
   flutter:
     sdk: flutter
@@ -129,13 +137,14 @@ dependencies:
   sqflite: ^2.2.5
   path_provider: ^2.1.2
   camera: ^0.10.5+2
-🧪 To Do (Remaining Work)
- Train and export the toxicity detection model.
+```
 
- Build Flutter UI (screens, plant info display, SQLite support).
+---
 
- Integrate TFLite model inference in Flutter.
+## 🧪 To Do (Remaining Work)
 
- Handle CameraX integration for image capture.
-
- Improve offline experience (e.g., asset preloading).
+- [ ] Train and export the toxicity detection model.
+- [ ] Build Flutter UI (screens, plant info display, SQLite support).
+- [ ] Integrate TFLite model inference in Flutter.
+- [ ] Handle CameraX integration for image capture.
+- [ ] Improve offline experience (e.g., asset preloading).
