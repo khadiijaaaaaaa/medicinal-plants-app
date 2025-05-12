@@ -1,0 +1,327 @@
+[
+  {
+    "name": "Aloevera",
+    "scientific_name": "Aloe vera",
+    "medicinal_uses": [
+      "Hydratation de la peau",
+      "Traitement des brûlures légères",
+      "Soulagement des irritations cutanées"
+    ],
+    "toxicity": {
+      "is_toxic": true,
+      "toxic_parts": "Latex (partie jaune sous la peau de la feuille)",
+      "effects": [
+        "Diarrhée",
+        "Crampes abdominales",
+        "Irritations en usage prolongé"
+      ]
+    },
+    "natural_remedies": [
+      {
+        "title": "Gel apaisant pour brûlures",
+        "ingredients": [
+          "Gel d’aloevera frais",
+          "Huile de lavande (optionnelle)"
+        ],
+        "instructions": "Appliquer directement sur la brûlure 2 à 3 fois par jour."
+      },
+      {
+        "title": "Masque hydratant pour visage",
+        "ingredients": [
+          "Gel d’aloevera",
+          "Miel bio"
+        ],
+        "instructions": "Mélanger et appliquer 15 minutes avant de rincer."
+      }
+    ],
+    "origin": "Afrique du Nord",
+    "growth_environment": "Climat sec et ensoleillé",
+    "category": "Plante médicinale"
+  },
+  {
+    "name": "Lemon",
+    "scientific_name": "Citrus limon",
+    "medicinal_uses": [
+      "Renforcement immunitaire",
+      "Aide à la digestion",
+      "Réduction de la fièvre"
+    ],
+    "toxicity": {
+      "is_toxic": false,
+      "toxic_parts": "",
+      "effects": []
+    },
+    "natural_remedies": [
+      {
+        "title": "Boisson détoxifiante",
+        "ingredients": [
+          "Jus de citron frais",
+          "Eau tiède",
+          "Miel"
+        ],
+        "instructions": "Boire à jeun le matin pour favoriser la digestion."
+      }
+    ],
+    "origin": "Asie du Sud",
+    "growth_environment": "Climat tropical ou méditerranéen",
+    "category": "Fruit médicinal"
+  },
+  {
+    "name": "Beans",
+    "scientific_name": "Phaseolus vulgaris",
+    "medicinal_uses": [
+      "Réduction du cholestérol",
+      "Amélioration de la digestion",
+      "Régulation de la glycémie"
+    ],
+    "toxicity": {
+      "is_toxic": true,
+      "toxic_parts": "Haricots crus",
+      "effects": [
+        "Nausées",
+        "Vomissements",
+        "Douleurs abdominales"
+      ]
+    },
+    "natural_remedies": [
+      {
+        "title": "Soupe nutritive de haricots",
+        "ingredients": [
+          "Haricots cuits",
+          "Légumes variés",
+          "Épices"
+        ],
+        "instructions": "Faire bouillir et consommer pour un repas riche en fibres."
+      }
+    ],
+    "origin": "Amérique centrale et du Sud",
+    "growth_environment": "Climat tempéré à chaud",
+    "category": "Légumineuse"
+  },
+  {
+    "name": "Mint",
+    "scientific_name": "Mentha",
+    "medicinal_uses": [
+      "Soulagement des troubles digestifs",
+      "Réduction des nausées",
+      "Effet rafraîchissant et apaisant"
+    ],
+    "toxicity": {
+      "is_toxic": false,
+      "toxic_parts": "",
+      "effects": []
+    },
+    "natural_remedies": [
+      {
+        "title": "Infusion digestive à la menthe",
+        "ingredients": [
+          "Feuilles de menthe fraîches",
+          "Eau chaude"
+        ],
+        "instructions": "Infuser pendant 5-10 minutes et boire après les repas."
+      }
+    ],
+    "origin": "Europe et Asie",
+    "growth_environment": "Climat tempéré, sol humide",
+    "category": "Plante aromatique et médicinale"
+  },
+  {
+    "name": "Onion",
+    "scientific_name": "Allium cepa",
+    "medicinal_uses": [
+      "Réduction de l'inflammation",
+      "Propriétés antimicrobiennes",
+      "Amélioration de la circulation sanguine"
+    ],
+    "toxicity": {
+      "is_toxic": true,
+      "toxic_parts": "Parties crues en grande quantité (pour les animaux surtout)",
+      "effects": [
+        "Irritation gastrique",
+        "Réactions allergiques"
+      ]
+    },
+    "natural_remedies": [
+      {
+        "title": "Sirop contre la toux",
+        "ingredients": [
+          "Jus d'oignon",
+          "Miel"
+        ],
+        "instructions": "Mélanger et prendre une cuillère 2 fois par jour."
+      }
+    ],
+    "origin": "Asie centrale",
+    "growth_environment": "Climat tempéré, sol riche",
+    "category": "Légume médicinal"
+  },
+  {
+    "name": "Pumpkin",
+    "scientific_name": "Cucurbita pepo",
+    "medicinal_uses": [
+      "Soutien de la santé cardiaque",
+      "Renforcement du système immunitaire",
+      "Santé de la peau"
+    ],
+    "toxicity": {
+      "is_toxic": false,
+      "toxic_parts": "",
+      "effects": []
+    },
+    "natural_remedies": [
+      {
+        "title": "Soupe de potiron",
+        "ingredients": [
+          "Chair de potiron",
+          "Épices",
+          "Lait ou crème"
+        ],
+        "instructions": "Cuire et mixer pour obtenir une soupe nutritive."
+      }
+    ],
+    "origin": "Amérique du Nord",
+    "growth_environment": "Climat tempéré à chaud",
+    "category": "Légume"
+  },
+  {
+    "name": "Rose",
+    "scientific_name": "Rosa",
+    "medicinal_uses": [
+      "Apaisement du stress",
+      "Soins de la peau",
+      "Effet antioxydant"
+    ],
+    "toxicity": {
+      "is_toxic": false,
+      "toxic_parts": "",
+      "effects": []
+    },
+    "natural_remedies": [
+      {
+        "title": "Eau de rose tonifiante",
+        "ingredients": [
+          "Pétales de rose",
+          "Eau distillée"
+        ],
+        "instructions": "Faire bouillir, filtrer, et utiliser comme tonique."
+      }
+    ],
+    "origin": "Asie",
+    "growth_environment": "Climat tempéré",
+    "category": "Fleur médicinale"
+  },
+  {
+    "name": "Tomato",
+    "scientific_name": "Solanum lycopersicum",
+    "medicinal_uses": [
+      "Santé cardiovasculaire",
+      "Réduction des risques de cancer",
+      "Soin de la peau"
+    ],
+    "toxicity": {
+      "is_toxic": true,
+      "toxic_parts": "Feuilles et tiges",
+      "effects": [
+        "Troubles digestifs",
+        "Maux de tête"
+      ]
+    },
+    "natural_remedies": [
+      {
+        "title": "Masque facial antioxydant",
+        "ingredients": [
+          "Jus de tomate",
+          "Yaourt nature"
+        ],
+        "instructions": "Appliquer sur le visage pendant 15 minutes puis rincer."
+      }
+    ],
+    "origin": "Amérique du Sud",
+    "growth_environment": "Climat chaud, bien ensoleillé",
+    "category": "Fruit médicinal"
+  },
+  {
+    "name": "Pepper",
+    "scientific_name": "Capsicum annuum",
+    "medicinal_uses": [
+      "Stimulation du métabolisme",
+      "Soulagement des douleurs",
+      "Renforcement immunitaire"
+    ],
+    "toxicity": {
+      "is_toxic": false,
+      "toxic_parts": "",
+      "effects": []
+    },
+    "natural_remedies": [
+      {
+        "title": "Pâte anti-douleur au piment",
+        "ingredients": [
+          "Piment moulu",
+          "Huile de coco"
+        ],
+        "instructions": "Appliquer sur les zones douloureuses avec précaution."
+      }
+    ],
+    "origin": "Amérique centrale",
+    "growth_environment": "Climat chaud",
+    "category": "Légume médicinal"
+  },
+  {
+    "name": "Jasmine",
+    "scientific_name": "Jasminum officinale",
+    "medicinal_uses": [
+      "Réduction de l’anxiété",
+      "Amélioration du sommeil",
+      "Stimulation de l’humeur"
+    ],
+    "toxicity": {
+      "is_toxic": false,
+      "toxic_parts": "",
+      "effects": []
+    },
+    "natural_remedies": [
+      {
+        "title": "Infusion relaxante de jasmin",
+        "ingredients": [
+          "Fleurs de jasmin séchées",
+          "Eau chaude"
+        ],
+        "instructions": "Infuser 5 minutes et boire avant de dormir."
+      }
+    ],
+    "origin": "Himalaya et Asie du Sud",
+    "growth_environment": "Climat tropical à tempéré",
+    "category": "Fleur médicinale"
+  },
+  {
+    "name": "Ginger",
+    "scientific_name": "Zingiber officinale",
+    "medicinal_uses": [
+      "Soulagement des nausées",
+      "Réduction de l’inflammation",
+      "Stimulation de la digestion"
+    ],
+    "toxicity": {
+      "is_toxic": false,
+      "toxic_parts": "",
+      "effects": []
+    },
+    "natural_remedies": [
+      {
+        "title": "Infusion de gingembre",
+        "ingredients": [
+          "Racine de gingembre fraîche",
+          "Citron",
+          "Miel"
+        ],
+        "instructions": "Faire bouillir le gingembre, ajouter citron et miel, boire chaud."
+      }
+    ],
+    "origin": "Asie du Sud-Est",
+    "growth_environment": "Climat chaud et humide",
+    "category": "Racine médicinale"
+  }
+]
+
+  
