@@ -16,7 +16,7 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
   File? _selectedImage;
   late final ImagePicker _picker;
   Interpreter? _interpreter;
-  String _predictionResult = 'Aucune image sélectionnée.';
+  String _predictionResult = 'No image selected.';
   final int inputSize = 224;
 
   final List<String> _classNames = [
@@ -43,9 +43,9 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
   Future<void> _loadModel() async {
     try {
       _interpreter = await Interpreter.fromAsset('assets/models/model_compatible1.tflite');
-      debugPrint('✅ Modèle chargé avec succès.');
+      debugPrint('✅ Model loaded successfully.');
     } catch (e) {
-      debugPrint('❌ Erreur de chargement du modèle : $e');
+      debugPrint('❌ Error loading model: $e');
     }
   }
 
@@ -54,7 +54,7 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
     if (pickedFile != null) {
       setState(() {
         _selectedImage = File(pickedFile.path);
-        _predictionResult = '⏳ Prédiction en cours...';
+        _predictionResult = '⏳ Predicting...';
       });
       await _runModelOnImage(_selectedImage!);
     }
@@ -62,7 +62,7 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
 
   Future<void> _runModelOnImage(File imageFile) async {
     if (_interpreter == null) {
-      setState(() => _predictionResult = "❌ Modèle non chargé.");
+      setState(() => _predictionResult = "❌ Model not loaded.");
       return;
     }
 
@@ -70,14 +70,12 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
     img.Image? image = img.decodeImage(bytes);
 
     if (image == null) {
-      setState(() => _predictionResult = "❌ Impossible de lire l'image.");
+      setState(() => _predictionResult = "❌ Couldn't read image.");
       return;
     }
 
-    // Redimensionner l'image
     final resizedImage = img.copyResize(image, width: inputSize, height: inputSize);
 
-    // Normaliser et convertir en Float32
     final input = Float32List(inputSize * inputSize * 3);
     int index = 0;
     for (int y = 0; y < inputSize; y++) {
@@ -90,8 +88,6 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
     }
 
     final inputTensor = input.reshape([1, inputSize, inputSize, 3]);
-
-    // Créer un tableau de sortie
     final output = List.filled(_classNames.length, 0.0).reshape([1, _classNames.length]);
 
     try {
@@ -104,37 +100,101 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
 
       setState(() {
         _predictionResult =
-        "✅ Classe prédite : $predictedClass\n🔍 Confiance : ${(maxProb * 100).toStringAsFixed(2)}%";
+        "✅ Predicted: $predictedClass";
       });
     } catch (e) {
-      setState(() => _predictionResult = "❌ Erreur d'inférence : $e");
+      setState(() => _predictionResult = "❌ Inference error: $e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          _selectedImage != null
-              ? Image.file(_selectedImage!, height: 250)
-              : const Text('📷 Veuillez sélectionner une image'),
-          const SizedBox(height: 16),
-          Text(_predictionResult, textAlign: TextAlign.center),
-          const SizedBox(height: 24),
-          ElevatedButton.icon(
-            icon: const Icon(Icons.image),
-            label: const Text("Depuis la Galerie"),
-            onPressed: () => _pickImage(ImageSource.gallery),
+    return Scaffold(
+      backgroundColor: const Color(0xFFF2E7D3),
+      appBar: AppBar(
+        title: const Text(
+          'Plant Identification',
+          style: TextStyle(
+            color: Color(0xFFF2E7D3),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
-          const SizedBox(height: 12),
-          ElevatedButton.icon(
-            icon: const Icon(Icons.camera_alt),
-            label: const Text("Depuis la Caméra"),
-            onPressed: () => _pickImage(ImageSource.camera),
-          ),
-        ],
+        ),
+        backgroundColor: const Color(0xFF499265),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Card(
+              elevation: 4,
+              color: const Color(0xFFBCE7B4),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  children: [
+                    _selectedImage != null
+                        ? ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.file(_selectedImage!, height: 250),
+                    )
+                        : const Text(
+                      'Select an image to identify a plant',
+                      style: TextStyle(
+                        color: Color(0xFFAF8447),
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      _predictionResult,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Color(0xFF499265),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF87CB7C),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              icon: const Icon(Icons.image),
+              label: const Text(
+                "Choose from Gallery",
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () => _pickImage(ImageSource.gallery),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFD9B17D),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              icon: const Icon(Icons.camera_alt),
+              label: const Text(
+                "Take a Photo",
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () => _pickImage(ImageSource.camera),
+            ),
+          ],
+        ),
       ),
     );
   }
