@@ -4,6 +4,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as img;
 import 'dart:typed_data';
+// Ajouter ces imports
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
+
+import 'ToxicityWarningWidget.dart';
 
 class ImageClassificationWidget extends StatefulWidget {
   const ImageClassificationWidget({Key? key}) : super(key: key);
@@ -32,6 +37,53 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
     'Taro', 'Tecoma', 'Thumbe', 'Tomato', 'Tulsi', 'Turmeric', 'ashoka', 'camphor', 'kamakasturi',
     'kepala'
   ];
+
+  // Ajouter ces variables d'état dans la classe _ImageClassificationWidgetState
+  Map<String, dynamic>? _currentPlantData;
+  bool _isToxic = false;
+  String? _toxicParts;
+  List<String> _toxicEffects = [];
+
+// Ajouter cette méthode pour charger les données de toxicité
+  Future<void> _loadPlantToxicityData(String plantName) async {
+    try {
+      final String response = await rootBundle.loadString('assets/plants_data.json');
+      final List<dynamic> data = json.decode(response);
+
+      // Rechercher la plante dans les données JSON
+      final plantData = data.firstWhere(
+            (plant) => plant['name'] == plantName,
+        orElse: () => null,
+      );
+
+      if (plantData != null) {
+        setState(() {
+          _currentPlantData = plantData;
+
+          // Extraire les données de toxicité
+          final toxicity = plantData['toxicity'];
+          _isToxic = toxicity['is_toxic'] ?? false;
+          _toxicParts = toxicity['toxic_parts'];
+          _toxicEffects = List<String>.from(toxicity['effects'] ?? []);
+        });
+      } else {
+        setState(() {
+          _currentPlantData = null;
+          _isToxic = false;
+          _toxicParts = null;
+          _toxicEffects = [];
+        });
+      }
+    } catch (e) {
+      debugPrint('❌ Error loading plant data: $e');
+      setState(() {
+        _currentPlantData = null;
+        _isToxic = false;
+        _toxicParts = null;
+        _toxicEffects = [];
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -105,6 +157,24 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
     } catch (e) {
       setState(() => _predictionResult = "❌ Inference error: $e");
     }
+
+    try {
+      _interpreter!.run(inputTensor, output);
+
+      final List<double> probabilities = List<double>.from(output[0]);
+      final maxProb = probabilities.reduce((a, b) => a > b ? a : b);
+      final predictedIndex = probabilities.indexOf(maxProb);
+      final predictedClass = _classNames[predictedIndex];
+
+      // Charger les données de toxicité pour la plante identifiée
+      await _loadPlantToxicityData(predictedClass);
+
+      setState(() {
+        _predictionResult = "✅ Predicted: $predictedClass";
+      });
+    } catch (e) {
+      setState(() => _predictionResult = "❌ Inference error: $e");
+    }
   }
 
   @override
@@ -159,6 +229,12 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
                 ),
               ),
             ),
+            if (_currentPlantData != null)
+              ToxicityWarningWidget(
+                isToxic: _isToxic,
+                toxicParts: _toxicParts,
+                effects: _toxicEffects,
+              ),
             const SizedBox(height: 24),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
