@@ -7,7 +7,7 @@ import 'dart:typed_data';
 // Ajouter ces imports
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-
+import 'plant_details_screen.dart';
 import 'ToxicityWarningWidget.dart';
 
 class ImageClassificationWidget extends StatefulWidget {
@@ -176,6 +176,14 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
       setState(() => _predictionResult = "❌ Inference error: $e");
     }
   }
+// Méthode pour extraire le nom de la plante du résultat de prédiction
+  String? _extractPlantName(String predictionResult) {
+    // Format attendu: "✅ Predicted: NomPlante"
+    if (predictionResult.contains("Predicted:")) {
+      return predictionResult.split("Predicted:").last.trim();
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -225,10 +233,46 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    // Ajouter le bouton "Plus de détails" qui apparaît uniquement après identification
+                    if (_predictionResult.contains("Predicted:"))
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF499265),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          icon: const Icon(Icons.info_outline),
+                          label: const Text(
+                            "Plus de détails",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          onPressed: () {
+                            // Extraire le nom de la plante du résultat de prédiction
+                            final plantName = _extractPlantName(_predictionResult);
+                            if (plantName != null) {
+                              // Naviguer vers la page de détails
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PlantDetailsScreen(plantName: plantName),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                      ),
                   ],
                 ),
               ),
             ),
+
+
+
             if (_currentPlantData != null)
               ToxicityWarningWidget(
                 isToxic: _isToxic,
