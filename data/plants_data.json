@@ -3,48 +3,89 @@
     "name": "Aloevera",
     "scientific_name": "Aloe vera",
     "medicinal_uses": [
-      "Hydratation de la peau",
-      "Traitement des brûlures légères",
-      "Soulagement des irritations cutanées"
+      "Skin hydration",
+      "Treatment of minor burns",
+      "Relief of skin irritations"
     ],
     "toxicity": {
       "is_toxic": true,
-      "toxic_parts": "Latex (partie jaune sous la peau de la feuille)",
+      "toxic_parts": "Latex (yellow part under the leaf skin)",
       "effects": [
-        "Diarrhée",
-        "Crampes abdominales",
-        "Irritations en usage prolongé"
+        "Diarrhea",
+        "Abdominal cramps",
+        "Irritation with prolonged use"
       ]
     },
     "natural_remedies": [
       {
-        "title": "Gel apaisant pour brûlures",
+        "title": "Soothing burn gel",
         "ingredients": [
-          "Gel d’aloevera frais",
-          "Huile de lavande (optionnelle)"
+          "Fresh aloe vera gel",
+          "Lavender oil (optional)"
         ],
-        "instructions": "Appliquer directement sur la brûlure 2 à 3 fois par jour."
+        "instructions": "Apply directly to the burn 2 to 3 times a day.",
+        "use_category": "General Wellness"
       },
       {
-        "title": "Masque hydratant pour visage",
+        "title": "Hydrating face mask",
         "ingredients": [
-          "Gel d’aloevera",
-          "Miel bio"
+          "Aloe vera gel",
+          "Organic honey"
         ],
-        "instructions": "Mélanger et appliquer 15 minutes avant de rincer."
+        "instructions": "Mix and apply for 15 minutes before rinsing.",
+        "use_category": "Skin Health"
+      },
+      {
+        "title": "Scalp treatment for dandruff",
+        "ingredients": [
+          "Aloe vera gel",
+          "Coconut oil",
+          "Tea tree oil (2-3 drops)"
+        ],
+        "instructions": "Massage into scalp, leave for 30 minutes, then rinse with mild shampoo.",
+        "use_category": "Hair Care"
+      },
+      {
+        "title": "Sunburn relief spray",
+        "ingredients": [
+          "Aloe vera gel",
+          "Chamomile tea (cooled)",
+          "Peppermint oil (1-2 drops)"
+        ],
+        "instructions": "Mix in a spray bottle, shake well, and mist over sunburned skin.",
+        "use_category": "Skin Health"
+      },
+      {
+        "title": "Digestive juice for heartburn",
+        "ingredients": [
+          "2 tbsp aloe vera gel",
+          "1 cup water",
+          "1 tsp lemon juice"
+        ],
+        "instructions": "Blend and drink once daily on an empty stomach.",
+        "use_category": "Gut Health"
+      },
+      {
+        "title": "Acne spot treatment",
+        "ingredients": [
+          "Aloe vera gel",
+          "Turmeric powder (pinch)"
+        ],
+        "instructions": "Apply as a paste to blemishes overnight, rinse in the morning.",
+        "use_category": "Acne Treatment"
       }
     ],
-    "origin": "Afrique du Nord",
-    "growth_environment": "Climat sec et ensoleillé",
-    "category": "Plante médicinale"
+    "origin": "North Africa",
+    "growth_environment": "Dry and sunny climate",
+    "category": "Medicinal plant"
   },
   {
     "name": "Lemon",
     "scientific_name": "Citrus limon",
     "medicinal_uses": [
-      "Renforcement immunitaire",
-      "Aide à la digestion",
-      "Réduction de la fièvre"
+      "Boosting immune system",
+      "Aiding digestion",
+      "Reducing fever"
     ],
     "toxicity": {
       "is_toxic": false,
@@ -53,58 +94,163 @@
     },
     "natural_remedies": [
       {
-        "title": "Boisson détoxifiante",
+        "title": "Detox drink",
         "ingredients": [
-          "Jus de citron frais",
-          "Eau tiède",
-          "Miel"
+          "Fresh lemon juice",
+          "Warm water",
+          "Honey"
         ],
-        "instructions": "Boire à jeun le matin pour favoriser la digestion."
+        "instructions": "Drink on an empty stomach in the morning to aid digestion.",
+        "use_category": "General Wellness"
+      },
+      {
+        "title": "Sore throat gargle",
+        "ingredients": [
+          "Juice of 1 lemon",
+          "1 cup warm water",
+          "1/2 tsp salt"
+        ],
+        "instructions": "Gargle for 30 seconds, 2-3 times daily. Do not swallow.",
+        "use_category": "Respiratory Health"
+      },
+      {
+        "title": "Skin brightening scrub",
+        "ingredients": [
+          "Lemon juice",
+          "Sugar",
+          "Olive oil"
+        ],
+        "instructions": "Gently exfoliate face, rinse after 5 minutes. Avoid sun exposure after use.",
+        "use_category": "Skin Health"
+      },
+      {
+        "title": "Immune-boosting shot",
+        "ingredients": [
+          "Lemon juice",
+          "Ginger juice",
+          "Turmeric powder"
+        ],
+        "instructions": "Mix and take 1 tbsp daily during cold season.",
+        "use_category": "Immune Support"
+      },
+      {
+        "title": "Grease-cutting cleaner",
+        "ingredients": [
+          "Lemon peels",
+          "White vinegar",
+          "Water"
+        ],
+        "instructions": "Steep peels in vinegar for 2 weeks, dilute with water, and use as a spray.",
+        "use_category": "Household Use"
+      },
+      {
+        "title": "Hair lightening rinse",
+        "ingredients": [
+          "Lemon juice",
+          "Water",
+          "Sunlight (for activation)"
+        ],
+        "instructions": "Spray on hair, sit in sun for 30 mins, then rinse. Condition after.",
+        "use_category": "Hair Care"
       }
     ],
-    "origin": "Asie du Sud",
-    "growth_environment": "Climat tropical ou méditerranéen",
-    "category": "Fruit médicinal"
+    "origin": "South Asia",
+    "growth_environment": "Tropical or Mediterranean climate",
+    "category": "Medicinal fruit"
   },
   {
     "name": "Beans",
     "scientific_name": "Phaseolus vulgaris",
     "medicinal_uses": [
-      "Réduction du cholestérol",
-      "Amélioration de la digestion",
-      "Régulation de la glycémie"
+      "Reducing cholesterol",
+      "Improving digestion",
+      "Regulating blood sugar"
     ],
     "toxicity": {
       "is_toxic": true,
-      "toxic_parts": "Haricots crus",
+      "toxic_parts": "Raw beans",
       "effects": [
-        "Nausées",
-        "Vomissements",
-        "Douleurs abdominales"
+        "Nausea",
+        "Vomiting",
+        "Abdominal pain"
       ]
     },
     "natural_remedies": [
       {
-        "title": "Soupe nutritive de haricots",
+        "title": "Nutritious bean soup",
         "ingredients": [
-          "Haricots cuits",
-          "Légumes variés",
-          "Épices"
+          "Cooked beans",
+          "Assorted vegetables",
+          "Spices"
         ],
-        "instructions": "Faire bouillir et consommer pour un repas riche en fibres."
+        "instructions": "Boil and consume for a fiber-rich meal.",
+        "use_category": "General Wellness"
+      },
+      {
+        "title": "Protein-packed bean patties",
+        "ingredients": [
+          "Mashed beans",
+          "Oats",
+          "Chopped onions",
+          "Egg (or flaxseed as binder)"
+        ],
+        "instructions": "Shape into patties, pan-fry until golden. Serve as a meat alternative.",
+        "use_category": "Muscle Health"
+      },
+      {
+        "title": "Blood sugar-balancing bean salad",
+        "ingredients": [
+          "Black beans",
+          "Apple cider vinegar",
+          "Olive oil",
+          "Leafy greens"
+        ],
+        "instructions": "Toss ingredients and eat 3-4 times weekly to stabilize glucose levels.",
+        "use_category": "Diabetes Management"
+      },
+      {
+        "title": "Digestive bean broth",
+        "ingredients": [
+          "Bean cooking water (aquafaba)",
+          "Ginger",
+          "Cumin"
+        ],
+        "instructions": "Simmer spices in aquafaba for 10 mins. Drink warm to ease bloating.",
+        "use_category": "Gut Health"
+      },
+      {
+        "title": "Bean flour face scrub",
+        "ingredients": [
+          "Ground dried beans (fine powder)",
+          "Yogurt",
+          "Honey"
+        ],
+        "instructions": "Gently massage onto skin, rinse after 5 mins. Exfoliates gently.",
+        "use_category": "Skin Health"
+      },
+      {
+        "title": "Heart-healthy bean dip",
+        "ingredients": [
+          "Cannellini beans",
+          "Garlic",
+          "Lemon juice",
+          "Tahini"
+        ],
+        "instructions": "Blend into a paste. Consume regularly to support cholesterol levels.",
+        "use_category": "Cardiovascular Health"
       }
     ],
-    "origin": "Amérique centrale et du Sud",
-    "growth_environment": "Climat tempéré à chaud",
-    "category": "Légumineuse"
+    "origin": "Central and South America",
+    "growth_environment": "Temperate to warm climate",
+    "category": "Legume"
   },
   {
     "name": "Mint",
     "scientific_name": "Mentha",
     "medicinal_uses": [
-      "Soulagement des troubles digestifs",
-      "Réduction des nausées",
-      "Effet rafraîchissant et apaisant"
+      "Relief from digestive disorders",
+      "Reducing nausea",
+      "Refreshing and soothing effect"
     ],
     "toxicity": {
       "is_toxic": false,
@@ -113,55 +259,150 @@
     },
     "natural_remedies": [
       {
-        "title": "Infusion digestive à la menthe",
+        "title": "Digestive mint tea",
         "ingredients": [
-          "Feuilles de menthe fraîches",
-          "Eau chaude"
+          "Fresh mint leaves",
+          "Hot water"
         ],
-        "instructions": "Infuser pendant 5-10 minutes et boire après les repas."
+        "instructions": "Steep for 5-10 minutes and drink after meals.",
+        "use_category": "General Wellness"
+      },
+      {
+        "title": "Headache relief compress",
+        "ingredients": [
+          "Crushed mint leaves",
+          "Cold water",
+          "Lavender oil (2 drops)"
+        ],
+        "instructions": "Soak cloth in mint-infused cold water, apply to forehead for 15 minutes.",
+        "use_category": "Pain Relief"
+      },
+      {
+        "title": "Congestion-clearing steam",
+        "ingredients": [
+          "Handful of mint leaves",
+          "Boiling water",
+          "Eucalyptus oil (optional)"
+        ],
+        "instructions": "Inhale the steam for 5-10 minutes with a towel over your head.",
+        "use_category": "Respiratory Health"
+      },
+      {
+        "title": "Energy-boosting mint water",
+        "ingredients": [
+          "Mint leaves",
+          "Cucumber slices",
+          "Cold water"
+        ],
+        "instructions": "Infuse overnight. Drink throughout the day for natural energy.",
+        "use_category": "Energy Support"
+      },
+      {
+        "title": "Anti-itch mosquito bite paste",
+        "ingredients": [
+          "Crushed mint leaves",
+          "Baking soda",
+          "Aloe vera gel"
+        ],
+        "instructions": "Mix into paste, apply to bites for instant relief.",
+        "use_category": "Skin Health"
+      },
+      {
+        "title": "Mint mouthwash for fresh breath",
+        "ingredients": [
+          "Mint leaves",
+          "Water",
+          "Cloves (optional)"
+        ],
+        "instructions": "Boil, strain, and use as a gargle after cooling.",
+        "use_category": "Oral Health"
       }
     ],
-    "origin": "Europe et Asie",
-    "growth_environment": "Climat tempéré, sol humide",
-    "category": "Plante aromatique et médicinale"
+    "origin": "Europe and Asia",
+    "growth_environment": "Temperate climate, moist soil",
+    "category": "Aromatic and medicinal plant"
   },
   {
     "name": "Onion",
     "scientific_name": "Allium cepa",
     "medicinal_uses": [
-      "Réduction de l'inflammation",
-      "Propriétés antimicrobiennes",
-      "Amélioration de la circulation sanguine"
+      "Reducing inflammation",
+      "Antimicrobial properties",
+      "Improving blood circulation"
     ],
     "toxicity": {
       "is_toxic": true,
-      "toxic_parts": "Parties crues en grande quantité (pour les animaux surtout)",
+      "toxic_parts": "Raw parts in large quantities (especially for animals)",
       "effects": [
-        "Irritation gastrique",
-        "Réactions allergiques"
+        "Gastric irritation",
+        "Allergic reactions"
       ]
     },
     "natural_remedies": [
       {
-        "title": "Sirop contre la toux",
+        "title": "Cough syrup",
         "ingredients": [
-          "Jus d'oignon",
-          "Miel"
+          "Onion juice",
+          "Honey"
         ],
-        "instructions": "Mélanger et prendre une cuillère 2 fois par jour."
+        "instructions": "Mix and take one spoon twice a day.",
+        "use_category": "Respiratory Health"
+      },
+      {
+        "title": "Onion poultice for chest congestion",
+        "ingredients": [
+          "Grated onion",
+          "Warm cloth"
+        ],
+        "instructions": "Place grated onion in cloth and apply to chest for 15 minutes.",
+        "use_category": "Respiratory Health"
+      },
+      {
+        "title": "Onion-infused oil for earache",
+        "ingredients": [
+          "Chopped onion",
+          "Olive oil"
+        ],
+        "instructions": "Warm mixture, strain, and apply a few drops to the ear.",
+        "use_category": "Pain Relief"
+      },
+      {
+        "title": "Onion juice for hair growth",
+        "ingredients": [
+          "Fresh onion juice"
+        ],
+        "instructions": "Apply to scalp, leave for 30 minutes, then wash.",
+        "use_category": "Hair Care"
+      },
+      {
+        "title": "Onion skin tea for blood pressure",
+        "ingredients": [
+          "Onion skins",
+          "Water"
+        ],
+        "instructions": "Boil skins in water, strain, and drink once daily.",
+        "use_category": "Cardiovascular Health"
+      },
+      {
+        "title": "Onion paste for insect bites",
+        "ingredients": [
+          "Crushed onion"
+        ],
+        "instructions": "Apply paste to affected area for relief.",
+        "use_category": "Skin Health"
       }
     ],
-    "origin": "Asie centrale",
-    "growth_environment": "Climat tempéré, sol riche",
-    "category": "Légume médicinal"
+    "origin": "Central Asia",
+    "growth_environment": "Temperate climate, rich soil",
+    "category": "Medicinal vegetable"
   },
   {
     "name": "Pumpkin",
     "scientific_name": "Cucurbita pepo",
     "medicinal_uses": [
-      "Soutien de la santé cardiaque",
-      "Renforcement du système immunitaire",
-      "Santé de la peau"
+      "Supporting heart health",
+      "Boosting immune system",
+      "Skin health"
     ],
     "toxicity": {
       "is_toxic": false,
@@ -170,26 +411,73 @@
     },
     "natural_remedies": [
       {
-        "title": "Soupe de potiron",
+        "title": "Pumpkin soup",
         "ingredients": [
-          "Chair de potiron",
-          "Épices",
-          "Lait ou crème"
+          "Pumpkin flesh",
+          "Spices",
+          "Milk or cream"
         ],
-        "instructions": "Cuire et mixer pour obtenir une soupe nutritive."
+        "instructions": "Cook and blend into a nutritious soup.",
+        "use_category": "General Wellness"
+      },
+      {
+        "title": "Pumpkin seed oil for prostate health",
+        "ingredients": [
+          "Pumpkin seed oil"
+        ],
+        "instructions": "Consume 1 teaspoon daily.",
+        "use_category": "General Wellness"
+      },
+      {
+        "title": "Pumpkin face mask",
+        "ingredients": [
+          "Pumpkin puree",
+          "Honey",
+          "Yogurt"
+        ],
+        "instructions": "Apply to face, leave for 15 minutes, then rinse.",
+        "use_category": "Skin Health"
+      },
+      {
+        "title": "Roasted pumpkin seeds for digestion",
+        "ingredients": [
+          "Pumpkin seeds",
+          "Salt"
+        ],
+        "instructions": "Roast seeds with salt and consume as a snack.",
+        "use_category": "Gut Health"
+      },
+      {
+        "title": "Pumpkin smoothie for immunity",
+        "ingredients": [
+          "Pumpkin puree",
+          "Orange juice",
+          "Ginger"
+        ],
+        "instructions": "Blend ingredients and drink in the morning.",
+        "use_category": "Immune Support"
+      },
+      {
+        "title": "Pumpkin seed tea for urinary health",
+        "ingredients": [
+          "Crushed pumpkin seeds",
+          "Water"
+        ],
+        "instructions": "Boil seeds in water, strain, and drink.",
+        "use_category": "General Wellness"
       }
     ],
-    "origin": "Amérique du Nord",
-    "growth_environment": "Climat tempéré à chaud",
-    "category": "Légume"
+    "origin": "North America",
+    "growth_environment": "Temperate to warm climate",
+    "category": "Vegetable"
   },
   {
     "name": "Rose",
     "scientific_name": "Rosa",
     "medicinal_uses": [
-      "Apaisement du stress",
-      "Soins de la peau",
-      "Effet antioxydant"
+      "Stress relief",
+      "Skin care",
+      "Antioxidant effect"
     ],
     "toxicity": {
       "is_toxic": false,
@@ -198,55 +486,148 @@
     },
     "natural_remedies": [
       {
-        "title": "Eau de rose tonifiante",
+        "title": "Refreshing rose water",
         "ingredients": [
-          "Pétales de rose",
-          "Eau distillée"
+          "Rose petals",
+          "Distilled water"
         ],
-        "instructions": "Faire bouillir, filtrer, et utiliser comme tonique."
+        "instructions": "Boil, strain, and use as a toner.",
+        "use_category": "General Wellness"
+      },
+      {
+        "title": "Rose petal tea for relaxation",
+        "ingredients": [
+          "Dried rose petals",
+          "Hot water"
+        ],
+        "instructions": "Steep petals in hot water for 5 minutes and drink.",
+        "use_category": "Mental Well-being"
+      },
+      {
+        "title": "Rose petal face mask",
+        "ingredients": [
+          "Crushed rose petals",
+          "Honey"
+        ],
+        "instructions": "Apply to face, leave for 15 minutes, then rinse.",
+        "use_category": "Skin Health"
+      },
+      {
+        "title": "Rosehip oil for skin rejuvenation",
+        "ingredients": [
+          "Rosehip oil"
+        ],
+        "instructions": "Apply a few drops to the face before bedtime.",
+        "use_category": "Skin Health"
+      },
+      {
+        "title": "Rose bath for stress relief",
+        "ingredients": [
+          "Fresh rose petals",
+          "Warm bath water"
+        ],
+        "instructions": "Add petals to bath and soak for 20 minutes.",
+        "use_category": "Mental Well-being"
+      },
+      {
+        "title": "Rose compress for eye strain",
+        "ingredients": [
+          "Rose water",
+          "Cotton pads"
+        ],
+        "instructions": "Soak pads in rose water and place over eyes for 10 minutes.",
+        "use_category": "General Wellness"
       }
     ],
-    "origin": "Asie",
-    "growth_environment": "Climat tempéré",
-    "category": "Fleur médicinale"
+    "origin": "Asia",
+    "growth_environment": "Temperate climate",
+    "category": "Medicinal flower"
   },
   {
     "name": "Tomato",
     "scientific_name": "Solanum lycopersicum",
     "medicinal_uses": [
-      "Santé cardiovasculaire",
-      "Réduction des risques de cancer",
-      "Soin de la peau"
+      "Cardiovascular health",
+      "Reducing cancer risks",
+      "Skin care"
     ],
     "toxicity": {
       "is_toxic": true,
-      "toxic_parts": "Feuilles et tiges",
+      "toxic_parts": "Leaves and stems",
       "effects": [
-        "Troubles digestifs",
-        "Maux de tête"
+        "Digestive issues",
+        "Headaches"
       ]
     },
     "natural_remedies": [
       {
-        "title": "Masque facial antioxydant",
+        "title": "Antioxidant face mask",
         "ingredients": [
-          "Jus de tomate",
-          "Yaourt nature"
+          "Tomato juice",
+          "Plain yogurt"
         ],
-        "instructions": "Appliquer sur le visage pendant 15 minutes puis rincer."
+        "instructions": "Apply to the face for 15 minutes, then rinse.",
+        "use_category": "Skin Health"
+      },
+      {
+        "title": "Tomato juice for sunburn relief",
+        "ingredients": [
+          "Fresh tomato juice",
+          "Cucumber juice"
+        ],
+        "instructions": "Mix and apply to sunburned skin for 20 minutes.",
+        "use_category": "Skin Health"
+      },
+      {
+        "title": "Tomato soup for heart health",
+        "ingredients": [
+          "Tomatoes",
+          "Garlic",
+          "Olive oil"
+        ],
+        "instructions": "Cook ingredients and blend into a soup.",
+        "use_category": "Cardiovascular Health"
+      },
+      {
+        "title": "Tomato hair rinse for shine",
+        "ingredients": [
+          "Tomato juice",
+          "Water"
+        ],
+        "instructions": "Dilute juice with water and rinse hair after shampooing.",
+        "use_category": "Hair Care"
+      },
+      {
+        "title": "Tomato and lemon toner",
+        "ingredients": [
+          "Tomato juice",
+          "Lemon juice"
+        ],
+        "instructions": "Mix and apply to face with a cotton ball.",
+        "use_category": "Skin Health"
+      },
+      {
+        "title": "Tomato smoothie for immunity",
+        "ingredients": [
+          "Tomato",
+          "Carrot",
+          "Celery"
+        ],
+        "instructions": "Blend ingredients and drink daily.",
+        "use_category": "Immune Support"
       }
     ],
-    "origin": "Amérique du Sud",
-    "growth_environment": "Climat chaud, bien ensoleillé",
-    "category": "Fruit médicinal"
+    "origin": "South America",
+    "growth_environment": "Warm, sunny climate",
+    "category": "Medicinal fruit"
   },
   {
     "name": "Pepper",
     "scientific_name": "Capsicum annuum",
     "medicinal_uses": [
-      "Stimulation du métabolisme",
-      "Soulagement des douleurs",
-      "Renforcement immunitaire"
+      "Metabolism stimulation",
+      "Pain relief",
+      "Boosting immune system"
     ],
     "toxicity": {
       "is_toxic": false,
@@ -255,25 +636,75 @@
     },
     "natural_remedies": [
       {
-        "title": "Pâte anti-douleur au piment",
+        "title": "Pain-relief pepper paste",
         "ingredients": [
-          "Piment moulu",
-          "Huile de coco"
+          "Ground pepper",
+          "Coconut oil"
         ],
-        "instructions": "Appliquer sur les zones douloureuses avec précaution."
+        "instructions": "Apply cautiously to painful areas.",
+        "use_category": "Pain Relief"
+      },
+      {
+        "title": "Pepper tea for congestion",
+        "ingredients": [
+          "Crushed pepper",
+          "Hot water"
+        ],
+        "instructions": "Steep pepper in hot water for 5 minutes and drink.",
+        "use_category": "Respiratory Health"
+      },
+      {
+        "title": "Pepper-infused oil for arthritis",
+        "ingredients": [
+          "Chili peppers",
+          "Olive oil"
+        ],
+        "instructions": "Infuse peppers in oil, strain, and apply to joints.",
+        "use_category": "Pain Relief"
+      },
+      {
+        "title": "Pepper gargle for sore throat",
+        "ingredients": [
+          "Cayenne pepper",
+          "Warm water",
+          "Salt"
+        ],
+        "instructions": "Mix ingredients and gargle for 30 seconds. Repeat twice daily.",
+        "use_category": "Respiratory Health"
+      },
+      {
+        "title": "Pepper steam inhalation",
+        "ingredients": [
+          "Hot water",
+          "Crushed chili or black pepper"
+        ],
+        "instructions": "Add pepper to hot water and inhale the steam for 10 minutes.",
+        "use_category": "Respiratory Health"
+      },
+      {
+        "title": "Pepper tonic for energy boost",
+        "ingredients": [
+          "Pinch of cayenne pepper",
+          "Lemon juice",
+          "Warm water",
+          "Honey"
+        ],
+        "instructions": "Mix all ingredients and drink in the morning to stimulate metabolism and boost energy.",
+        "use_category": "General Wellness"
       }
+
     ],
-    "origin": "Amérique centrale",
-    "growth_environment": "Climat chaud",
-    "category": "Légume médicinal"
+    "origin": "Central America",
+    "growth_environment": "Warm climate",
+    "category": "Medicinal vegetable"
   },
   {
     "name": "Jasmine",
     "scientific_name": "Jasminum officinale",
     "medicinal_uses": [
-      "Réduction de l’anxiété",
-      "Amélioration du sommeil",
-      "Stimulation de l’humeur"
+      "Reducing anxiety",
+      "Improving sleep",
+      "Mood enhancement"
     ],
     "toxicity": {
       "is_toxic": false,
@@ -282,25 +713,72 @@
     },
     "natural_remedies": [
       {
-        "title": "Infusion relaxante de jasmin",
+        "title": "Relaxing jasmine tea",
         "ingredients": [
-          "Fleurs de jasmin séchées",
-          "Eau chaude"
+          "Dried jasmine flowers",
+          "Hot water"
         ],
-        "instructions": "Infuser 5 minutes et boire avant de dormir."
+        "instructions": "Steep for 5 minutes and drink before bed.",
+        "use_category": "Mental Well-being"
+      },
+      {
+        "title": "Jasmine oil for stress relief",
+        "ingredients": [
+          "Jasmine essential oil",
+          "Carrier oil (e.g., almond oil)"
+        ],
+        "instructions": "Massage onto temples or wrists to reduce stress.",
+        "use_category": "Mental Well-being"
+      },
+      {
+        "title": "Jasmine bath soak",
+        "ingredients": [
+          "Jasmine flowers",
+          "Epsom salt",
+          "Warm bath water"
+        ],
+        "instructions": "Add to bath and soak for 20 minutes.",
+        "use_category": "General Wellness"
+      },
+      {
+        "title": "Mood-boosting jasmine diffuser blend",
+        "ingredients": [
+          "Jasmine essential oil",
+          "Water"
+        ],
+        "instructions": "Add to diffuser and inhale the aroma for a mood lift.",
+        "use_category": "Mental Well-being"
+      },
+      {
+        "title": "Jasmine sleep sachet",
+        "ingredients": [
+          "Dried jasmine flowers",
+          "Cotton or muslin bag"
+        ],
+        "instructions": "Place under pillow to promote restful sleep.",
+        "use_category": "Mental Well-being"
+      },
+      {
+        "title": "Jasmine skin toner",
+        "ingredients": [
+          "Jasmine water",
+          "Rose water"
+        ],
+        "instructions": "Apply to face with a cotton pad to refresh and calm skin.",
+        "use_category": "General Wellness"
       }
     ],
-    "origin": "Himalaya et Asie du Sud",
-    "growth_environment": "Climat tropical à tempéré",
-    "category": "Fleur médicinale"
+    "origin": "Himalayas and South Asia",
+    "growth_environment": "Tropical to temperate climate",
+    "category": "Medicinal flower"
   },
   {
     "name": "Ginger",
     "scientific_name": "Zingiber officinale",
     "medicinal_uses": [
-      "Soulagement des nausées",
-      "Réduction de l’inflammation",
-      "Stimulation de la digestion"
+      "Relief from nausea",
+      "Reducing inflammation",
+      "Stimulating digestion"
     ],
     "toxicity": {
       "is_toxic": false,
@@ -309,19 +787,65 @@
     },
     "natural_remedies": [
       {
-        "title": "Infusion de gingembre",
+        "title": "Ginger tea",
         "ingredients": [
-          "Racine de gingembre fraîche",
-          "Citron",
-          "Miel"
+          "Fresh ginger root",
+          "Lemon",
+          "Honey"
         ],
-        "instructions": "Faire bouillir le gingembre, ajouter citron et miel, boire chaud."
+        "instructions": "Boil ginger, add lemon and honey, drink warm.",
+        "use_category": "General Wellness"
+      },
+      {
+        "title": "Ginger compress for muscle pain",
+        "ingredients": [
+          "Grated ginger",
+          "Hot water",
+          "Cloth"
+        ],
+        "instructions": "Soak cloth in ginger water and apply to sore areas.",
+        "use_category": "Pain Relief"
+      },
+      {
+        "title": "Ginger and honey syrup for sore throat",
+        "ingredients": [
+          "Ginger juice",
+          "Honey"
+        ],
+        "instructions": "Mix equal parts and take a spoonful twice a day.",
+        "use_category": "Respiratory Health"
+      },
+      {
+        "title": "Ginger infusion for nausea",
+        "ingredients": [
+          "Sliced ginger",
+          "Hot water"
+        ],
+        "instructions": "Steep for 10 minutes and sip slowly.",
+        "use_category": "Digestive Health"
+      },
+      {
+        "title": "Ginger bath for circulation",
+        "ingredients": [
+          "Ginger powder",
+          "Warm bath water"
+        ],
+        "instructions": "Add to bath and soak for 15 minutes to stimulate blood flow.",
+        "use_category": "General Wellness"
+      },
+      {
+        "title": "Anti-inflammatory ginger paste",
+        "ingredients": [
+          "Fresh ginger",
+          "Turmeric",
+          "Water"
+        ],
+        "instructions": "Make a paste and apply to inflamed joints or skin.",
+        "use_category": "Pain Relief"
       }
     ],
-    "origin": "Asie du Sud-Est",
-    "growth_environment": "Climat chaud et humide",
-    "category": "Racine médicinale"
+    "origin": "Southeast Asia",
+    "growth_environment": "Warm and humid climate",
+    "category": "Medicinal root"
   }
 ]
-
-  
