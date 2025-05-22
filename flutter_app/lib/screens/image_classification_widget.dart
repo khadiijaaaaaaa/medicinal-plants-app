@@ -9,6 +9,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'plant_details_screen.dart';
 import 'ToxicityWarningWidget.dart';
+import 'remedies_page.dart';
+
 
 class ImageClassificationWidget extends StatefulWidget {
   const ImageClassificationWidget({Key? key}) : super(key: key);
@@ -313,6 +315,31 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
               ),
               onPressed: () => _pickImage(ImageSource.camera),
             ),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF499265),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              icon: const Icon(Icons.healing),
+              label: const Text(
+                "Remedies Guide",
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RemediesPage(),
+                  ),
+                );
+              },
+            ),
+
           ],
         ),
       ),
