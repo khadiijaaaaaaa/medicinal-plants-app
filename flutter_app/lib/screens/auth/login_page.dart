@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../repositories/user_repository.dart';
 
 class LoginPage extends StatefulWidget {
-  final VoidCallback onLoginSuccess;
+  final void Function(int userId) onLoginSuccess;
 
   const LoginPage({super.key, required this.onLoginSuccess});
 
@@ -44,7 +45,12 @@ class _LoginPageState extends State<LoginPage> {
         return;
       }
 
-      widget.onLoginSuccess();
+      // Save user ID to SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('userId', user.userId!);
+
+      // Call onLoginSuccess with the user ID
+      widget.onLoginSuccess(user.userId!);
     } catch (e) {
       setState(() {
         _errorMessage = 'Login failed. Please try again.';
@@ -96,9 +102,9 @@ class _LoginPageState extends State<LoginPage> {
             _isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-              onPressed: _login,
-              child: const Text('Login'),
-            ),
+                    onPressed: _login,
+                    child: const Text('Login'),
+                  ),
           ],
         ),
       ),

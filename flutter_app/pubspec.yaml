@@ -41,7 +41,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   # Pour choisir une image depuis la galerie ou la caméra
-  image_picker: ^1.0.4
+  image_picker: ^1.1.2
   # Pour exécuter le modèle .tflite
   ffi: ^2.1.4
   tflite_flutter: ^0.11.0

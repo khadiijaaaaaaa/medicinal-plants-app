@@ -24,9 +24,18 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
+  }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      // Add new columns to users table
+      await db.execute('ALTER TABLE users ADD COLUMN name TEXT');
+      await db.execute('ALTER TABLE users ADD COLUMN profile_image_path TEXT');
+    }
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -101,6 +110,8 @@ class DatabaseHelper {
         user_id INTEGER PRIMARY KEY AUTOINCREMENT,
         email TEXT NOT NULL UNIQUE,
         password_hash TEXT NOT NULL,
+        name TEXT,
+        profile_image_path TEXT,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP
       )
     ''');

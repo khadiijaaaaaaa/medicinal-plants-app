@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/welcome_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
 // Assurez-vous que les chemins d'importation correspondent à votre structure de projet
 import '../models/user.dart';
 import '../repositories/user_repository.dart'; // Adaptez si le chemin est différent
+import 'auth/auth_wrapper.dart'; // Add this import
 
 class ProfileScreen extends StatefulWidget {
   final int userId; // ID de l'utilisateur connecté, à passer lors de la navigation
@@ -16,14 +19,25 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final UserRepository _userRepository = UserRepository();
+  final ImagePicker _imagePicker = ImagePicker();
+  final TextEditingController _nameController = TextEditingController();
+  
   User? _currentUser;
   bool _isLoading = true;
   String? _errorMessage;
+  File? _selectedImage;
+  bool _isEditing = false;
 
   @override
   void initState() {
     super.initState();
     _loadUserData();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadUserData() async {
@@ -37,6 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (mounted) { // Vérifier si le widgets est toujours monté avant d'appeler setState
         setState(() {
           _currentUser = user;
+          _nameController.text = user?.name ?? '';
           _isLoading = false;
         });
       }
@@ -50,36 +65,86 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  void _editProfile() {
-    // Logique pour naviguer vers un écran de modification de profil
-    // ou afficher une boîte de dialogue.
-    // Pour l'instant, affichons un message.
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Fonctionnalité de modification à implémenter.')),
-    );
-    // Exemple de navigation (à adapter) :
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen(user: _currentUser!)));
+  Future<void> _pickImage() async {
+    try {
+      final pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        setState(() {
+          _selectedImage = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erreur lors de la sélection de l\'image: ${e.toString()}')),
+      );
+    }
   }
 
-  void _logout() async {
-    // Obtenir l'instance de SharedPreferences
-    final prefs = await SharedPreferences.getInstance();
+  Future<void> _saveProfile() async {
+    if (_currentUser == null) return;
 
-    // Supprimer l'ID utilisateur ou tout autre champ de session
-    await prefs.remove('userId'); // Change 'userId' si tu utilises une autre clé
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
 
-    if (!mounted) return; // Vérifie que le widgets est encore monté
+    try {
+      // Update user data
+      _currentUser!.name = _nameController.text.trim();
+      
+      // Handle image if selected
+      if (_selectedImage != null) {
+        // In a real app, you would upload the image to a server
+        // and get back a URL. For now, we'll just store the local path
+        _currentUser!.profileImagePath = _selectedImage!.path;
+      }
 
-    // Affiche un message de confirmation
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Déconnexion réussie.')),
-    );
+      // Save to database
+      await _userRepository.updateUser(_currentUser!);
 
-    // Redirection vers l'écran de connexion
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const WelcomePage()), // Remplace avec ton écran
-          (Route<dynamic> route) => false, // Supprime toutes les routes précédentes
-    );
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          _isEditing = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Profil mis à jour avec succès')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _errorMessage = "Erreur lors de la mise à jour du profil: ${e.toString()}";
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _logout() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('userId');
+      
+      if (!mounted) return;
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Déconnexion réussie')),
+      );
+
+      // Navigate to auth screen and remove all previous routes
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const AuthWrapper()),
+        (route) => false,
+      );
+    } catch (e) {
+      if (!mounted) return;
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erreur lors de la déconnexion: ${e.toString()}')),
+      );
+    }
   }
 
   @override
@@ -87,6 +152,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil Utilisateur'),
+        actions: [
+          if (!_isLoading && _currentUser != null && !_isEditing)
+            IconButton(
+              icon: const Icon(Icons.edit),
+              onPressed: () => setState(() => _isEditing = true),
+            ),
+        ],
       ),
       body: _buildBody(),
     );
@@ -112,53 +184,111 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
     }
 
-    // Affichage des informations utilisateur
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          // Section Informations Utilisateur
-          Text(
-            'Informations Personnelles',
-            // Correction: Utilisation de titleLarge au lieu de headline6
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 16.0),
-          // Affichage de l'email uniquement
-          ListTile(
-            leading: const Icon(Icons.email),
-            // Assurez-vous que le modèle User a bien un champ 'email'
-            title: Text(_currentUser!.email ?? 'Email non défini'),
-          ),
-
-          const Spacer(), // Pousse les boutons vers le bas
-
-          // Section Actions
-          Center(
-            child: ElevatedButton.icon(
-              icon: const Icon(Icons.edit),
-              label: const Text('Modifier le Profil'),
-              onPressed: _currentUser != null ? _editProfile : null, // Désactiver si pas d'utilisateur
-              style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 40)), // Prend toute la largeur
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Profile Image
+          GestureDetector(
+            onTap: _isEditing ? _pickImage : null,
+            child: Stack(
+              children: [
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: _getProfileImage(),
+                  child: _currentUser?.profileImagePath == null && _selectedImage == null
+                      ? const Icon(Icons.person, size: 60)
+                      : null,
+                ),
+                if (_isEditing)
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: Colors.blue,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
-          const SizedBox(height: 10.0),
-          Center(
-            child: ElevatedButton.icon(
+          const SizedBox(height: 24),
+
+          // Name Field
+          if (_isEditing)
+            TextField(
+              controller: _nameController,
+              decoration: const InputDecoration(
+                labelText: 'Nom',
+                border: OutlineInputBorder(),
+              ),
+            )
+          else
+            Text(
+              _currentUser?.name ?? 'Nom non défini',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          const SizedBox(height: 16),
+
+          // Email (read-only)
+          ListTile(
+            leading: const Icon(Icons.email),
+            title: Text(_currentUser!.email),
+            subtitle: const Text('Email'),
+          ),
+          const SizedBox(height: 24),
+
+          // Action Buttons
+          if (_isEditing) ...[
+            ElevatedButton(
+              onPressed: _saveProfile,
+              child: const Text('Enregistrer les modifications'),
+            ),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: () => setState(() {
+                _isEditing = false;
+                _selectedImage = null;
+                _nameController.text = _currentUser?.name ?? '';
+              }),
+              child: const Text('Annuler'),
+            ),
+          ],
+
+          if (!_isEditing) ...[
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
               icon: const Icon(Icons.logout),
               label: const Text('Déconnexion'),
               onPressed: _logout,
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red, // Couleur rouge pour la déconnexion
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size(double.infinity, 40) // Prend toute la largeur
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
               ),
             ),
-          ),
+          ],
         ],
       ),
     );
+  }
+
+  ImageProvider? _getProfileImage() {
+    if (_selectedImage != null) {
+      return FileImage(_selectedImage!);
+    }
+    if (_currentUser?.profileImagePath != null) {
+      return FileImage(File(_currentUser!.profileImagePath!));
+    }
+    return null;
   }
 }
 

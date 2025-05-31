@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../repositories/user_repository.dart';
 import 'login_page.dart';
 import 'signup_page.dart';
@@ -12,9 +13,9 @@ class AuthWrapper extends StatefulWidget {
 }
 
 class _AuthWrapperState extends State<AuthWrapper> {
-  final UserRepository _userRepository = UserRepository();
   bool _isLoading = true;
   bool _isLoggedIn = false;
+  int? _userId;
 
   @override
   void initState() {
@@ -23,13 +24,38 @@ class _AuthWrapperState extends State<AuthWrapper> {
   }
 
   Future<void> _checkAuthStatus() async {
-    // Check if user is logged in (you might want to use shared_preferences for session)
-    // For now, we'll just check if any users exist in the database
-    final count = await _userRepository.getUserCount();
-    setState(() {
-      _isLoggedIn = count > 0;
-      _isLoading = false;
-    });
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userId = prefs.getInt('userId');
+      
+      if (userId != null) {
+        // Verify that the user exists in the database
+        final userRepo = UserRepository();
+        final user = await userRepo.getUserById(userId);
+        
+        if (mounted) {
+          setState(() {
+            _isLoggedIn = user != null;
+            _userId = user?.userId;
+            _isLoading = false;
+          });
+        }
+      } else {
+        if (mounted) {
+          setState(() {
+            _isLoggedIn = false;
+            _isLoading = false;
+          });
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isLoggedIn = false;
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   @override
@@ -42,18 +68,19 @@ class _AuthWrapperState extends State<AuthWrapper> {
       );
     }
 
-    return _isLoggedIn
-        ? const ImageClassificationWidget()
-        : AuthPage(onLoginSuccess: () {
-      setState(() {
-        _isLoggedIn = true;
-      });
-    });
+    return _isLoggedIn && _userId != null
+        ? ImageClassificationWidget(userId: _userId!)
+        : AuthPage(onLoginSuccess: (int userId) {
+            setState(() {
+              _isLoggedIn = true;
+              _userId = userId;
+            });
+          });
   }
 }
 
 class AuthPage extends StatelessWidget {
-  final VoidCallback onLoginSuccess;
+  final void Function(int userId) onLoginSuccess;
 
   const AuthPage({super.key, required this.onLoginSuccess});
 

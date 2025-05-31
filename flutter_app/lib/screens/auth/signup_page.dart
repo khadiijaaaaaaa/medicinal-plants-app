@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/user.dart';
 import '../../repositories/user_repository.dart';
 
 class SignupPage extends StatefulWidget {
-  final VoidCallback onSignupSuccess;
+  final void Function(int userId) onSignupSuccess;
 
   const SignupPage({super.key, required this.onSignupSuccess});
 
@@ -59,8 +60,14 @@ class _SignupPageState extends State<SignupPage> {
         passwordHash: _passwordController.text, // In a real app, you should hash this
       );
 
-      await userRepo.insertUser(newUser);
-      widget.onSignupSuccess();
+      final userId = await userRepo.insertUser(newUser);
+      
+      // Save user ID to SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('userId', userId);
+
+      // Call onSignupSuccess with the user ID
+      widget.onSignupSuccess(userId);
     } catch (e) {
       setState(() {
         _errorMessage = 'Signup failed. Please try again.';
@@ -130,9 +137,9 @@ class _SignupPageState extends State<SignupPage> {
             _isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-              onPressed: _signup,
-              child: const Text('Sign Up'),
-            ),
+                    onPressed: _signup,
+                    child: const Text('Sign Up'),
+                  ),
           ],
         ),
       ),
