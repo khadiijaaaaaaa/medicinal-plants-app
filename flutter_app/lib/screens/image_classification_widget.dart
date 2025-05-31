@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 // Ajouter ces imports
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import 'favorites_screen.dart';
 import 'plant_details_screen.dart';
 import 'ToxicityWarningWidget.dart';
 import 'remedies_page.dart';
@@ -27,6 +28,10 @@ class ImageClassificationWidget extends StatefulWidget {
   @override
   State<ImageClassificationWidget> createState() => _ImageClassificationWidgetState();
 }
+
+int _currentIndex = 0;
+
+
 
 class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
   File? _selectedImage;
@@ -106,6 +111,35 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
     super.initState();
     _picker = ImagePicker();
     _loadModel();
+  }
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0: // Home - already on this page
+        break;
+      case 1: // Favorites
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+        );
+        break;
+      case 2: // History
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HistoryPage()),
+        );
+        break;
+      case 3: // Profile
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileScreen(userId: 1)), // Replace with your user ID logic
+        );
+        break;
+    }
   }
 
   Future<void> _loadModel() async {
@@ -257,45 +291,6 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
           ),
         ),
         backgroundColor: const Color(0xFF499265),
-        actions: [
-          // --- Add History Button ---
-          IconButton(
-            icon: const Icon(Icons.history, color: Colors.white),
-            tooltip: 'Identification History',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HistoryPage()),
-              );
-            },
-          ),
-          // --- AJOUTER CE BOUTON PROFIL ---
-          IconButton(
-            icon: const Icon(Icons.person_outline, color: Colors.white), // Ou Icons.person
-            tooltip: 'Profil',
-            onPressed: () {
-              // Récupérez l'ID utilisateur ici (adaptez selon votre logique d'auth)
-              int? loggedInUserId = 1; // EXEMPLE: Remplacez par votre logique pour obtenir l'ID réel
-
-              if (loggedInUserId != null) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProfileScreen(userId: loggedInUserId),
-                  ),
-                );
-              } else {
-                // Gérer le cas où l'utilisateur n'est pas connecté
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Veuillez vous connecter pour voir le profil.')),
-                );
-                // Optionnel: Rediriger vers la page de connexion
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-              }
-            },
-          ),
-          // -------------------------
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -438,6 +433,32 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
           ],
         ),
       ),
+    bottomNavigationBar: BottomNavigationBar(
+    currentIndex: _currentIndex,
+    onTap: _onTabTapped,
+    type: BottomNavigationBarType.fixed,
+    backgroundColor: const Color(0xFF499265),
+    selectedItemColor: Colors.white,
+    unselectedItemColor: Colors.white.withOpacity(0.6),
+    items: const [
+    BottomNavigationBarItem(
+    icon: Icon(Icons.home),
+    label: 'Home',
+    ),
+    BottomNavigationBarItem(
+    icon: Icon(Icons.favorite),
+    label: 'Favorites',
+    ),
+    BottomNavigationBarItem(
+    icon: Icon(Icons.history),
+    label: 'History',
+    ),
+    BottomNavigationBarItem(
+    icon: Icon(Icons.person_outline),
+    label: 'Profile',
+    ),
+    ],
+    )
     );
   }
 }

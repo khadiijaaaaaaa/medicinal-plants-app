@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/welcome_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // Assurez-vous que les chemins d'importation correspondent à votre structure de projet
 import '../models/user.dart';
 import '../repositories/user_repository.dart'; // Adaptez si le chemin est différent
@@ -32,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       // Récupérer l'utilisateur par son ID
       final user = await _userRepository.getUserById(widget.userId);
-      if (mounted) { // Vérifier si le widget est toujours monté avant d'appeler setState
+      if (mounted) { // Vérifier si le widgets est toujours monté avant d'appeler setState
         setState(() {
           _currentUser = user;
           _isLoading = false;
@@ -66,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // Supprimer l'ID utilisateur ou tout autre champ de session
     await prefs.remove('userId'); // Change 'userId' si tu utilises une autre clé
 
-    if (!mounted) return; // Vérifie que le widget est encore monté
+    if (!mounted) return; // Vérifie que le widgets est encore monté
 
     // Affiche un message de confirmation
     ScaffoldMessenger.of(context).showSnackBar(
@@ -75,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     // Redirection vers l'écran de connexion
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const welcomePage()), // Remplace avec ton écran
+      MaterialPageRoute(builder: (context) => const WelcomePage()), // Remplace avec ton écran
           (Route<dynamic> route) => false, // Supprime toutes les routes précédentes
     );
   }

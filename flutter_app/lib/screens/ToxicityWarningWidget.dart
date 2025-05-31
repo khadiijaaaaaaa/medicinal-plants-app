@@ -39,7 +39,7 @@ class ToxicityWarningWidget extends StatelessWidget {
                 const Icon(Icons.warning_amber_rounded, color: Color(0xFFFF9800), size: 24),
                 const SizedBox(width: 8),
                 const Text(
-                  'ATTENTION : Plante toxique',
+                  'Warning: Toxic plant',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -51,7 +51,7 @@ class ToxicityWarningWidget extends StatelessWidget {
             if (toxicParts != null && toxicParts!.isNotEmpty) ...[
               const SizedBox(height: 8),
               Text(
-                'Parties toxiques : $toxicParts',
+                'Toxic Parts : $toxicParts',
                 style: const TextStyle(
                   fontSize: 14,
                   color: Color(0xFF424242),
@@ -61,7 +61,7 @@ class ToxicityWarningWidget extends StatelessWidget {
             if (effects.isNotEmpty) ...[
               const SizedBox(height: 8),
               const Text(
-                'Effets potentiels :',
+                'Effects :',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
