@@ -12,7 +12,7 @@ import 'plant_details_screen.dart';
 import 'ToxicityWarningWidget.dart';
 import 'remedies_page.dart';
 import 'history_page.dart';
-
+import 'profile_screen.dart';
 // Import models and repositories
 import '../models/identification_history.dart';
 import '../models/plant.dart';
@@ -267,6 +267,31 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
                 context,
                 MaterialPageRoute(builder: (context) => const HistoryPage()),
               );
+            },
+          ),
+          // --- AJOUTER CE BOUTON PROFIL ---
+          IconButton(
+            icon: const Icon(Icons.person_outline, color: Colors.white), // Ou Icons.person
+            tooltip: 'Profil',
+            onPressed: () {
+              // Récupérez l'ID utilisateur ici (adaptez selon votre logique d'auth)
+              int? loggedInUserId = 1; // EXEMPLE: Remplacez par votre logique pour obtenir l'ID réel
+
+              if (loggedInUserId != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(userId: loggedInUserId),
+                  ),
+                );
+              } else {
+                // Gérer le cas où l'utilisateur n'est pas connecté
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Veuillez vous connecter pour voir le profil.')),
+                );
+                // Optionnel: Rediriger vers la page de connexion
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+              }
             },
           ),
           // -------------------------
