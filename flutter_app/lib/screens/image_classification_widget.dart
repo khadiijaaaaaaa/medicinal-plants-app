@@ -4,12 +4,21 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as img;
 import 'dart:typed_data';
+import 'package:intl/intl.dart';
 // Ajouter ces imports
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'plant_details_screen.dart';
 import 'ToxicityWarningWidget.dart';
 import 'remedies_page.dart';
+import 'history_page.dart';
+
+// Import models and repositories
+import '../models/identification_history.dart';
+import '../models/plant.dart';
+import '../repositories/identification_history_repository.dart';
+import '../repositories/plant_repository.dart';
+
 
 
 class ImageClassificationWidget extends StatefulWidget {
@@ -25,6 +34,11 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
   Interpreter? _interpreter;
   String _predictionResult = 'No image selected.';
   final int inputSize = 224;
+
+  // Repositories
+  final IdentificationHistoryRepository _historyRepository = IdentificationHistoryRepository();
+  final PlantRepository _plantRepository = PlantRepository();
+
 
   final List<String> _classNames = [
     'Aloevera', 'Amla', 'Amruthaballi', 'Arali', 'Astma_weed', 'Badipala', 'Balloon_Vine', 'Bamboo',
@@ -174,10 +188,52 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
       setState(() {
         _predictionResult = "✅ Predicted: $predictedClass";
       });
+      // --- Save to History ---
+      await _saveIdentificationToHistory(predictedClass, imageFile.path);
+      // -----------------------
+
     } catch (e) {
       setState(() => _predictionResult = "❌ Inference error: $e");
     }
   }
+  // --- New Method to Save History ---
+  Future<void> _saveIdentificationToHistory(String plantName, String imagePath) async {
+    debugPrint('--- Attempting to save history for: $plantName ---'); // <-- AJOUTER
+    try {
+      List<Plant> plants = await _plantRepository.searchPlants(plantName);
+      debugPrint('Found plants matching search: ${plants.map((p) => p.commonName).toList()}'); // <-- AJOUTER
+      Plant? identifiedPlant;
+      if (plants.isNotEmpty) {
+        identifiedPlant = plants.firstWhere(
+              (p) => p.commonName.toLowerCase() == plantName.toLowerCase(),
+          orElse: () {
+            debugPrint('Exact match not found, using first result: ${plants.first.commonName}'); // <-- AJOUTER
+            return plants.first;
+          },
+        );
+      }
+
+      debugPrint('Identified Plant for history: ${identifiedPlant?.commonName} (ID: ${identifiedPlant?.plantId})'); // <-- AJOUTER
+
+      if (identifiedPlant?.plantId != null) {
+        final historyRecord = IdentificationHistory(
+          plantId: identifiedPlant!.plantId!,
+          imagePath: imagePath,
+          identificationDate: DateTime.now().toIso8601String(),
+          wasToxic: _isToxic,
+        );
+        debugPrint('History record to save: ${historyRecord.toMap()}'); // <-- AJOUTER
+        await _historyRepository.addHistoryRecord(historyRecord);
+        debugPrint('✅ Identification history saved successfully for $plantName.'); // <-- AJOUTER
+      } else {
+        debugPrint('❌ Plant "$plantName" not found in database. History not saved.'); // <-- Message existant
+      }
+    } catch (e) {
+      debugPrint('❌ Error saving identification history: $e'); // <-- Message existant
+    }
+    debugPrint('--- Finished attempting to save history for: $plantName ---'); // <-- AJOUTER
+  }
+
 // Méthode pour extraire le nom de la plante du résultat de prédiction
   String? _extractPlantName(String predictionResult) {
     // Format attendu: "✅ Predicted: NomPlante"
@@ -201,6 +257,20 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
           ),
         ),
         backgroundColor: const Color(0xFF499265),
+        actions: [
+          // --- Add History Button ---
+          IconButton(
+            icon: const Icon(Icons.history, color: Colors.white),
+            tooltip: 'Identification History',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HistoryPage()),
+              );
+            },
+          ),
+          // -------------------------
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
