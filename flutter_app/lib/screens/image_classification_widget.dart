@@ -19,6 +19,7 @@ import '../models/identification_history.dart';
 import '../models/plant.dart';
 import '../repositories/identification_history_repository.dart';
 import '../repositories/plant_repository.dart';
+import '../widgets/main_layout.dart';
 
 
 
@@ -132,13 +133,19 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
           MaterialPageRoute(builder: (context) => const FavoritesScreen()),
         );
         break;
-      case 2: // History
+      case 2: // Remedies
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => RemediesPage()),
+        );
+        break;
+      case 3: // History
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const HistoryPage()),
         );
         break;
-      case 3: // Profile
+      case 4: // Profile
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ProfileScreen(userId: widget.userId)),
@@ -284,216 +291,169 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF2E7D3),
-      appBar: AppBar(
-        title: const Text(
-          'Plant Identification',
-          style: TextStyle(
-            color: Color(0xFFF2E7D3),
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+    return MainLayout(
+      userId: widget.userId,
+      initialIndex: 0,
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF2E7D3),
+        appBar: AppBar(
+          title: const Text(
+            'Plant Identification',
+            style: TextStyle(
+              color: Color(0xFFF2E7D3),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
+          backgroundColor: const Color(0xFF499265),
+          centerTitle: true,
         ),
-        backgroundColor: const Color(0xFF499265),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Card(
-                elevation: 4,
-                color: const Color(0xFFBCE7B4),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _selectedImage != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.file(
-                                _selectedImage!,
-                                height: 250,
+        body: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Card(
+                  elevation: 4,
+                  color: const Color(0xFFBCE7B4),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _selectedImage != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.file(
+                                  _selectedImage!,
+                                  height: 250,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Container(
+                                height: 200,
                                 width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : Container(
-                              height: 200,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.3),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.add_photo_alternate,
-                                    size: 64,
-                                    color: Color(0xFFAF8447),
-                                  ),
-                                  SizedBox(height: 16),
-                                  Text(
-                                    'Select an image to identify a plant',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.add_photo_alternate,
+                                      size: 64,
                                       color: Color(0xFFAF8447),
-                                      fontSize: 16,
                                     ),
-                                  ),
-                                ],
+                                    SizedBox(height: 16),
+                                    Text(
+                                      'Select an image to identify a plant',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color(0xFFAF8447),
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                      const SizedBox(height: 16),
-                      Text(
-                        _predictionResult,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Color(0xFF499265),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      if (_predictionResult.contains("Predicted:"))
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF499265),
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
-                              minimumSize: const Size(200, 45),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            icon: const Icon(Icons.info_outline),
-                            label: const Text(
-                              "Plus de détails",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            onPressed: () {
-                              final plantName = _extractPlantName(_predictionResult);
-                              if (plantName != null) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => PlantDetailsScreen(plantName: plantName),
-                                  ),
-                                );
-                              }
-                            },
+                        const SizedBox(height: 16),
+                        Text(
+                          _predictionResult,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Color(0xFF499265),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                    ],
-                  ),
-                ),
-              ),
-              if (_currentPlantData != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: ToxicityWarningWidget(
-                    isToxic: _isToxic,
-                    toxicParts: _toxicParts,
-                    effects: _toxicEffects,
-                  ),
-                ),
-              const SizedBox(height: 24),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF87CB7C),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                icon: const Icon(Icons.image),
-                label: const Text(
-                  "Choose from Gallery",
-                  style: TextStyle(fontSize: 16),
-                ),
-                onPressed: () => _pickImage(ImageSource.gallery),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFD9B17D),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                icon: const Icon(Icons.camera_alt),
-                label: const Text(
-                  "Take a Photo",
-                  style: TextStyle(fontSize: 16),
-                ),
-                onPressed: () => _pickImage(ImageSource.camera),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF499265),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                icon: const Icon(Icons.healing),
-                label: const Text(
-                  "Remedies Guide",
-                  style: TextStyle(fontSize: 16),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RemediesPage(),
+                        if (_predictionResult.contains("Predicted:"))
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF499265),
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+                                minimumSize: const Size(200, 45),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              icon: const Icon(Icons.info_outline),
+                              label: const Text(
+                                "Plus de détails",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              onPressed: () {
+                                final plantName = _extractPlantName(_predictionResult);
+                                if (plantName != null) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PlantDetailsScreen(plantName: plantName),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                      ],
                     ),
-                  );
-                },
-              ),
-            ],
+                  ),
+                ),
+                if (_currentPlantData != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: ToxicityWarningWidget(
+                      isToxic: _isToxic,
+                      toxicParts: _toxicParts,
+                      effects: _toxicEffects,
+                    ),
+                  ),
+                const SizedBox(height: 24),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF87CB7C),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  icon: const Icon(Icons.image),
+                  label: const Text(
+                    "Choose from Gallery",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onPressed: () => _pickImage(ImageSource.gallery),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFD9B17D),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  icon: const Icon(Icons.camera_alt),
+                  label: const Text(
+                    "Take a Photo",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onPressed: () => _pickImage(ImageSource.camera),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF499265),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white.withOpacity(0.6),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
       ),
     );
   }
