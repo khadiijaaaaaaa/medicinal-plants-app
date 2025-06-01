@@ -89,15 +89,6 @@ class AuthPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Medicinal Plants'),
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'Login', icon: Icon(Icons.login)),
-              Tab(text: 'Sign Up', icon: Icon(Icons.person_add)),
-            ],
-          ),
-        ),
         body: TabBarView(
           children: [
             LoginPage(onLoginSuccess: onLoginSuccess),
