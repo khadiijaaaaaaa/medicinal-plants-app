@@ -12,7 +12,7 @@ class OnboardingPage extends StatelessWidget {
     required this.title,
     required this.description,
     this.isLast = false,
-    this.onGetStarted,
+    this.onGetStarted, required String subText,
   });
 
   @override
