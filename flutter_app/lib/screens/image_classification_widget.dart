@@ -447,30 +447,6 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
                 onPressed: () => _pickImage(ImageSource.camera),
               ),
               const SizedBox(height: 16),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF499265),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                icon: const Icon(Icons.healing),
-                label: const Text(
-                  "Remedies Guide",
-                  style: TextStyle(fontSize: 16),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RemediesPage(),
-                    ),
-                  );
-                },
-              ),
             ],
           ),
         ),

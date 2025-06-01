@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/welcome/welcome_page.dart';
 import '../database/database_helper.dart';
 import '../screens/auth/auth_wrapper.dart';
 import '../services/data_importer.dart';
@@ -67,7 +68,7 @@ class MedicinalPlantsApp extends StatelessWidget {
           seedColor: const Color(0xFF499265),
         ),
       ),
-      home: const AuthWrapper(),
+      home: WelcomePage(),
     );
   }
 }

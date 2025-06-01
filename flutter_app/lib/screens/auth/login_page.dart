@@ -12,6 +12,7 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
+
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
@@ -72,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                 // Leaf Icon
                 Container(
                   margin: const EdgeInsets.only(bottom: 40),
-                  child: Icon(Icons.eco, size: 80, color: Color(0xFF499265)), // Deep Green
+                  child: Icon(Icons.eco, size: 100, color: Color(0xFF499265)), // Deep Green
                 ),
 
                 // Email Field
