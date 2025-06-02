@@ -310,7 +310,7 @@ class _RemediesPageState extends State<RemediesPage> {
       case 0:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => ImageClassificationWidget(userId: 0)),
+          MaterialPageRoute(builder: (context) => ImageClassificationWidget(userId: 1)),
         );
         break;
       case 1:
@@ -331,7 +331,7 @@ class _RemediesPageState extends State<RemediesPage> {
       case 4:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => ProfileScreen(userId: 0)),
+          MaterialPageRoute(builder: (context) => ProfileScreen(userId: 1)),
         );
         break;
     }

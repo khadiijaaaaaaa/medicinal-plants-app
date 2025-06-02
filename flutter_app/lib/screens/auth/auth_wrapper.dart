@@ -14,7 +14,6 @@ class AuthWrapper extends StatefulWidget {
 
 class _AuthWrapperState extends State<AuthWrapper> {
   bool _isLoading = true;
-  bool _isLoggedIn = false;
   int? _userId;
 
   @override
@@ -27,15 +26,13 @@ class _AuthWrapperState extends State<AuthWrapper> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final userId = prefs.getInt('userId');
-      
+
       if (userId != null) {
-        // Verify that the user exists in the database
         final userRepo = UserRepository();
         final user = await userRepo.getUserById(userId);
-        
+
         if (mounted) {
           setState(() {
-            _isLoggedIn = user != null;
             _userId = user?.userId;
             _isLoading = false;
           });
@@ -43,7 +40,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
       } else {
         if (mounted) {
           setState(() {
-            _isLoggedIn = false;
             _isLoading = false;
           });
         }
@@ -51,7 +47,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _isLoggedIn = false;
           _isLoading = false;
         });
       }
@@ -68,14 +63,17 @@ class _AuthWrapperState extends State<AuthWrapper> {
       );
     }
 
-    return _isLoggedIn && _userId != null
+    return _userId != null
         ? ImageClassificationWidget(userId: _userId!)
         : AuthPage(onLoginSuccess: (int userId) {
-            setState(() {
-              _isLoggedIn = true;
-              _userId = userId;
-            });
-          });
+      // Update shared preferences and state
+      SharedPreferences.getInstance().then((prefs) {
+        prefs.setInt('userId', userId);
+      });
+      setState(() {
+        _userId = userId;
+      });
+    });
   }
 }
 

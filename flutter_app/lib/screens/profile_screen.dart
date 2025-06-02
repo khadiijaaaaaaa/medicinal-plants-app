@@ -26,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final UserRepository _userRepository = UserRepository();
   final ImagePicker _imagePicker = ImagePicker();
   final TextEditingController _nameController = TextEditingController();
-  
+
   User? _currentUser;
   bool _isLoading = true;
   String? _errorMessage;
@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       case 0:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => ImageClassificationWidget(userId: widget.userId)),
+          MaterialPageRoute(builder: (context) => ImageClassificationWidget(userId: 1)),
         );
         break;
       case 1:
@@ -103,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          _errorMessage = "Erreur lors du chargement des données utilisateur: ${e.toString()}";
+          _errorMessage = "Error while loading user data: ${e.toString()}";
           _isLoading = false;
         });
       }
@@ -120,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erreur lors de la sélection de l\'image: ${e.toString()}')),
+        SnackBar(content: Text('Image selection error: ${e.toString()}')),
       );
     }
   }
@@ -136,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       // Update user data
       _currentUser!.name = _nameController.text.trim();
-      
+
       // Handle image if selected
       if (_selectedImage != null) {
         // In a real app, you would upload the image to a server
@@ -153,13 +153,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _isEditing = false;
         });
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Profil mis à jour avec succès')),
+          const SnackBar(content: Text('Profile updated successfully')),
         );
       }
     } catch (e) {
       if (mounted) {
         setState(() {
-          _errorMessage = "Erreur lors de la mise à jour du profil: ${e.toString()}";
+          _errorMessage = "Failed to update profile: ${e.toString()}";
           _isLoading = false;
         });
       }
@@ -170,24 +170,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('userId');
-      
+
       if (!mounted) return;
 
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Déconnexion réussie')),
+        const SnackBar(content: Text('Successfully logged out')),
       );
 
       // Navigate to auth screen and remove all previous routes
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const AuthWrapper()),
-        (route) => false,
+            (route) => false,
       );
     } catch (e) {
       if (!mounted) return;
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erreur lors de la déconnexion: ${e.toString()}')),
+        SnackBar(content: Text('Logout failed: ${e.toString()}')),
       );
     }
   }
@@ -196,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profil Utilisateur'),
+        title: const Text('User profile'),
         actions: [
           if (!_isLoading && _currentUser != null && !_isEditing)
             IconButton(
@@ -229,7 +229,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (_currentUser == null) {
       return const Center(
-        child: Text('Utilisateur non trouvé.'),
+        child: Text('User not found!.'),
       );
     }
 
@@ -283,7 +283,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             )
           else
             Text(
-              _currentUser?.name ?? 'Nom non défini',
+              _currentUser?.name ?? 'Name',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           const SizedBox(height: 16),
@@ -300,7 +300,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if (_isEditing) ...[
             ElevatedButton(
               onPressed: _saveProfile,
-              child: const Text('Enregistrer les modifications'),
+              child: const Text('Save modifications'),
             ),
             const SizedBox(height: 8),
             TextButton(
@@ -309,7 +309,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 _selectedImage = null;
                 _nameController.text = _currentUser?.name ?? '';
               }),
-              child: const Text('Annuler'),
+              child: const Text('Back'),
             ),
           ],
 
@@ -317,7 +317,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(height: 16),
             ElevatedButton.icon(
               icon: const Icon(Icons.logout),
-              label: const Text('Déconnexion'),
+              label: const Text('Log Out'),
               onPressed: _logout,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
@@ -340,9 +340,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return null;
   }
 }
-
-// Note: Assurez-vous que le champ 'email' existe bien dans votre classe 'User'
-// dans 'user.dart'.
-// Assurez-vous également que les imports en haut du fichier correspondent
-// à l'emplacement réel de vos fichiers 'user.dart' et 'user_repository.dart'.
-

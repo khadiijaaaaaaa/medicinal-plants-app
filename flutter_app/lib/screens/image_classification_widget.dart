@@ -25,7 +25,7 @@ import '../repositories/plant_repository.dart';
 
 class ImageClassificationWidget extends StatefulWidget {
   final int userId;
-  
+
   const ImageClassificationWidget({
     Key? key,
     required this.userId,
@@ -80,6 +80,8 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
       _currentIndex = index;
     });
 
+    //final currentUserId = widget.userId;
+
     switch (index) {
       case 0:
         break;
@@ -104,7 +106,7 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
       case 4:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => ProfileScreen(userId: 0)),
+          MaterialPageRoute(builder: (context) => ProfileScreen(userId: 1)),
         );
         break;
     }
@@ -327,41 +329,41 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
                     children: [
                       _selectedImage != null
                           ? ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.file(
-                                _selectedImage!,
-                                height: 250,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            )
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(
+                          _selectedImage!,
+                          height: 250,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      )
                           : Container(
-                              height: 200,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.3),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.add_photo_alternate,
-                                    size: 64,
-                                    color: Color(0xFFAF8447),
-                                  ),
-                                  SizedBox(height: 16),
-                                  Text(
-                                    'Select an image to identify a plant',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Color(0xFFAF8447),
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
+                        height: 200,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.add_photo_alternate,
+                              size: 64,
+                              color: Color(0xFFAF8447),
+                            ),
+                            SizedBox(height: 16),
+                            Text(
+                              'Select an image to identify a plant',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFFAF8447),
+                                fontSize: 16,
                               ),
                             ),
+                          ],
+                        ),
+                      ),
                       const SizedBox(height: 16),
                       Text(
                         _predictionResult,
