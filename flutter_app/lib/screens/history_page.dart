@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/profile_screen.dart';
+import 'package:flutter_app/screens/remedies_page.dart';
 import 'package:intl/intl.dart'; // For date formatting
 
 // Import models and repositories
@@ -9,6 +11,9 @@ import '../repositories/identification_history_repository.dart';
 import '../repositories/plant_repository.dart';
 
 // Import detail screen for potential navigation
+import '../widgets/bottom_nav_bar.dart';
+import 'favorites_screen.dart';
+import 'image_classification_widget.dart';
 import 'plant_details_screen.dart';
 
 // Helper class to hold combined history data
@@ -32,6 +37,45 @@ class _HistoryPageState extends State<HistoryPage> {
   List<HistoryEntry> _historyEntries = [];
   bool _isLoading = true;
   String _errorMessage = '';
+  int _currentIndex = 3;
+
+  void _onTabTapped(int index) {
+    if (index == _currentIndex) return;
+
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ImageClassificationWidget(userId: 0)),
+        );
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const RemediesPage()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+        );
+        break;
+      case 3:
+      // Already on history page
+        break;
+      case 4:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileScreen(userId: 0)),
+        );
+        break;
+    }
+  }
 
   @override
   void initState() {
@@ -97,6 +141,10 @@ class _HistoryPageState extends State<HistoryPage> {
         ),
         backgroundColor: const Color(0xFF499265), // Match app theme
         iconTheme: const IconThemeData(color: Colors.white), // Back button color
+      ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped
       ),
       body: _buildBody(),
     );

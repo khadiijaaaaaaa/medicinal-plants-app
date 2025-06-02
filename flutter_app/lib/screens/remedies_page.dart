@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/screens/profile_screen.dart';
 import '../services/local_favorites_service.dart';
+import '../widgets/bottom_nav_bar.dart';
 import '../widgets/favorite_button.dart';
+import 'favorites_screen.dart';
+import 'history_page.dart';
+import 'image_classification_widget.dart';
 
 enum RemediesView { categories, remediesList }
 
@@ -19,13 +24,18 @@ class BodyZoneFilter {
 }
 
 class RemediesPage extends StatefulWidget {
+
+
+  //const RemediesPage({Key? key, required this.userId}) : super(key: key);  // Update constructor
   const RemediesPage({Key? key}) : super(key: key);
 
   @override
   _RemediesPageState createState() => _RemediesPageState();
+
 }
 
 class _RemediesPageState extends State<RemediesPage> {
+  int _currentIndex = 1;
   List<dynamic> _plants = [];
   List<dynamic> _allRemedies = [];
   List<dynamic> _filteredRemedies = [];
@@ -289,6 +299,44 @@ class _RemediesPageState extends State<RemediesPage> {
     });
   }
 
+  void _onTabTapped(int index) {
+    if (index == _currentIndex) return;
+
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ImageClassificationWidget(userId: 0)),
+        );
+        break;
+      case 1:
+      // Already on remedies page
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+        );
+        break;
+      case 3:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HistoryPage()),
+        );
+        break;
+      case 4:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileScreen(userId: 0)),
+        );
+        break;
+    }
+  }
+
   Future<void> _toggleRemedyFavorite(String plantName, String remedyTitle) async {
     // ... favorite logic ...
     final remedyIdentifier = _favoritesService.createRemedyIdentifier(plantName, remedyTitle);
@@ -388,6 +436,10 @@ class _RemediesPageState extends State<RemediesPage> {
           ),
         ]
             : null,
+      ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator(color: deepGreen))

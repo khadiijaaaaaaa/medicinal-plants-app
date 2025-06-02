@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 // Ajouter ces imports
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
+import '../widgets/bottom_nav_bar.dart';
 import 'favorites_screen.dart';
 import 'plant_details_screen.dart';
 import 'ToxicityWarningWidget.dart';
@@ -34,7 +35,6 @@ class ImageClassificationWidget extends StatefulWidget {
   State<ImageClassificationWidget> createState() => _ImageClassificationWidgetState();
 }
 
-int _currentIndex = 0;
 
 
 
@@ -69,6 +69,46 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
   bool _isToxic = false;
   String? _toxicParts;
   List<String> _toxicEffects = [];
+
+  int _currentIndex = 0;
+
+
+  void _onTabTapped(int index) {
+    if (index == _currentIndex) return;
+
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const RemediesPage()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+        );
+        break;
+      case 3:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HistoryPage()),
+        );
+        break;
+      case 4:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileScreen(userId: 0)),
+        );
+        break;
+    }
+  }
 
 // Ajouter cette méthode pour charger les données de toxicité
   Future<void> _loadPlantToxicityData(String plantName) async {
@@ -118,40 +158,6 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
     _loadModel();
   }
 
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-
-    switch (index) {
-      case 0: // Home - already on this page
-        break;
-      case 1: // Remedies
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const RemediesPage()),
-        );
-        break;
-      case 2: // Favorites
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const FavoritesScreen()),
-        );
-        break;
-      case 3: // History
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const HistoryPage()),
-        );
-        break;
-      case 4: // Profile
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ProfileScreen(userId: widget.userId)),
-        );
-        break;
-    }
-  }
 
   Future<void> _loadModel() async {
     try {
@@ -451,35 +457,9 @@ class _ImageClassificationWidgetState extends State<ImageClassificationWidget> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF499265),
-        selectedItemColor: const Color(0xFFF2E7D3),
-        unselectedItemColor: const Color(0xFFF2E7D3).withOpacity(0.6),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            label: 'Identify',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.spa),
-            label: 'Remedies',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+      bottomNavigationBar: BottomNavBar(
+          currentIndex: _currentIndex,
+          onTap: _onTabTapped
       ),
     );
   }

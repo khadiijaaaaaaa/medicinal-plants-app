@@ -1,7 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/screens/profile_screen.dart';
+import 'package:flutter_app/screens/remedies_page.dart';
 import '../services/local_favorites_service.dart'; // Import the local service
+import '../widgets/bottom_nav_bar.dart';
+import 'history_page.dart';
+import 'image_classification_widget.dart';
 import 'plant_details_screen.dart'; // Import detail screen for navigation
 
 // Helper class to hold favorite item details for display
@@ -34,6 +39,47 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   bool _isLoading = true;
   String? _errorMessage;
   Map<String, dynamic>? _allPlantData; // To look up details
+
+  int _currentIndex = 2; // Favorites is at index 2
+
+  void _onTabTapped(int index) {
+    if (index == _currentIndex) return;
+
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ImageClassificationWidget(userId: 0)),
+        );
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => RemediesPage()),
+        );
+        break;
+      case 2:
+      // Already on favorites page
+        break;
+      case 3:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HistoryPage()),
+        );
+        break;
+      case 4:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileScreen(userId: 0)),
+        );
+        break;
+    }
+  }
+
 
   // Define colors from the palette
   static const Color deepGreen = Color(0xFF499265);
@@ -181,7 +227,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       backgroundColor: softBeige,
       appBar: AppBar(
         title: const Text(
-          'My Favorites (Local)',
+          'My Favorites',
           style: TextStyle(color: softBeige, fontWeight: FontWeight.bold),
         ),
         backgroundColor: deepGreen,
@@ -214,6 +260,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         },
                       ),
                     ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+      ),
     );
   }
 

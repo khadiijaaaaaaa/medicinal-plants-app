@@ -1,12 +1,17 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/remedies_page.dart';
 import 'package:flutter_app/screens/welcome_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 // Assurez-vous que les chemins d'importation correspondent à votre structure de projet
 import '../models/user.dart';
 import '../repositories/user_repository.dart'; // Adaptez si le chemin est différent
-import 'auth/auth_wrapper.dart'; // Add this import
+import '../widgets/bottom_nav_bar.dart';
+import 'auth/auth_wrapper.dart';
+import 'favorites_screen.dart';
+import 'history_page.dart';
+import 'image_classification_widget.dart'; // Add this import
 
 class ProfileScreen extends StatefulWidget {
   final int userId; // ID de l'utilisateur connecté, à passer lors de la navigation
@@ -27,6 +32,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String? _errorMessage;
   File? _selectedImage;
   bool _isEditing = false;
+
+  int _currentIndex = 4; // Profile is at index 4
+
+  void _onTabTapped(int index) {
+    if (index == _currentIndex) return;
+
+    setState(() {
+      _currentIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ImageClassificationWidget(userId: widget.userId)),
+        );
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const RemediesPage()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+        );
+        break;
+      case 3:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HistoryPage()),
+        );
+        break;
+      case 4:
+      // Already on profile page
+        break;
+    }
+  }
 
   @override
   void initState() {
@@ -159,6 +204,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onPressed: () => setState(() => _isEditing = true),
             ),
         ],
+      ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
       ),
       body: _buildBody(),
     );
